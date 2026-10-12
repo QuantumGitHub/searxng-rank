@@ -8,8 +8,12 @@ services:
       - SEARXNG_BASE_URL=https://${SEARXNG_HOSTNAME:-localhost}/
       - SEARXNG_SECRET_KEY=${SEARXNG_SECRET_KEY:-secretkey}
     volumes:
-      - ./settings/searxng.yml:/etc/searxng/settings.yml:ro
-      - searxng-data:/etc/searxng
+      # Single config dir (upstream pattern): ./settings/settings.yml is the
+      # partial settings file merged over image defaults via
+      # `use_default_settings: true`. A previous revision mounted a file bind
+      # AND a named volume on overlapping paths (/etc/searxng/settings.yml +
+      # /etc/searxng), which is order-dependent and fragile.
+      - ./settings:/etc/searxng:rw
     restart: unless-stopped
     cap_drop:
       - ALL
@@ -44,5 +48,4 @@ services:
     restart: unless-stopped
 
 volumes:
-  searxng-data:
   qdrant-data:

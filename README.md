@@ -38,7 +38,7 @@ if the reranker model is missing it falls back to SearXNG's own ordering.
 `docker compose up -d` brings up the whole stack together:
 
 - **SearXNG** (`searxng/searxng:latest`) on `:8888`, configured from
-  [`settings/searxng.yml`](settings/searxng.yml) (JSON format on, limiter off).
+  [`settings/settings.yml`](settings/settings.yml) (JSON format on, limiter off).
 - **the MCP server** (`searxng-rank-mcp`) on `:8000`.
 - **Qdrant** on `:6333` (vector store; the Phase-2 cache).
 
@@ -127,7 +127,7 @@ searxng-rank/
 │   ├── orchestration/          LLM client + iterative search/evaluate loop
 │   └── mcp/                   Streamable-HTTP MCP tool surface
 ├── tests/                       unit + in-memory-MCP + re-probe tests
-├── settings/searxng.yml        SearXNG config (JSON on, limiter off)
+├── settings/settings.yml         SearXNG config (JSON on, limiter off)
 ├── docker-compose.yml            SearXNG + MCP + Qdrant
 ├── Dockerfile                    the MCP server image
 └── docs/                        architecture, MCP integration, prior art, embedding
